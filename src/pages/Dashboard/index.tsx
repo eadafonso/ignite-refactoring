@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "../../components/Header";
 import api from "../../services/api";
@@ -11,7 +11,7 @@ interface IFood {
   id: number;
   name: string;
   description: string;
-  price: number;
+  price: string;
   available: boolean;
   image: string;
 }
@@ -29,12 +29,12 @@ export default function Dashboard() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
 
-  async function getFoods() {
-    const { data } = await api.get("/foods");
-    setFoods(data);
-  }
-
   useEffect(() => {
+    async function getFoods() {
+      const { data } = await api.get("/foods");
+
+      setFoods(data);
+    }
     getFoods();
   }, []);
 
